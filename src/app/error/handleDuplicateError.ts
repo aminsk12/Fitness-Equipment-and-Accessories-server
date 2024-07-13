@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import mongoose from "mongoose"
 import { TErrorSources } from "../interface/error.interface"
 
-const handleDuplicateError = (err: any) => {
-  const pattern = /dup key: { id: "(.*?)" }/
-  const statusCode = 409
-  const message = 'Duplicate error'
-  const errorSources: TErrorSources = [
-    {
-      path: err.errmsg.match(pattern)[1],
-      message: err?.errmsg,
-    },
-  ]
+const handleValidationError = (err: mongoose.Error.ValidationError) => {
+  const statusCode = 400
+  const message = 'Validation Error'
+  const errorSources: TErrorSources = Object.values(err?.errors).map(val => {
+    return {
+      path: val?.path,
+      message: val?.message,
+    }
+  })
   return {
     statusCode,
     message,
@@ -18,4 +17,4 @@ const handleDuplicateError = (err: any) => {
   }
 }
 
-export default handleDuplicateError
+export default handleValidationError

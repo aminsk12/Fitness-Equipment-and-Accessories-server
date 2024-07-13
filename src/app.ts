@@ -2,8 +2,8 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import notFound from './app/middleware/notFoundRoute'
 import { routes } from './app/routes'
+import globalErrorHandler from './app/middleware/globalErrorHandler'
 
-// import { routes } from './app/routes'
 const app: Application = express()
 
 // middleware
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 // customize error
-// app.use(globalErrorHandler)
+app.use(globalErrorHandler)
 app.use(notFound)
 
 export default app

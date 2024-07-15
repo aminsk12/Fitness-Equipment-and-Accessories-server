@@ -7,7 +7,7 @@ import globalErrorHandler from './app/middleware/globalErrorHandler'
 const app: Application = express()
 
 // middleware
-app.use(cors({ origin: ['http://localhost:5173'] }))
+app.use(cors({ origin: ['https://fitness-equipment-and-accessories-client-chi.vercel.app'] }))
 app.use(express.json())
 
 // application routes
